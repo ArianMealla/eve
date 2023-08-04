@@ -33,6 +33,7 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate(Evento::$rules);
         $eventos = new Evento();
 
         $eventos->nombre = $request->get('nombre');
