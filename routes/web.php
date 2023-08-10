@@ -21,6 +21,7 @@ Route::get('template', function () {
 });
 
 
+
 Route::resource('eventos', 'App\Http\Controllers\EventoController');
 
 Route::middleware([
