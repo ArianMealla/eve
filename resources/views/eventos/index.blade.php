@@ -14,7 +14,11 @@
 
 @section('content')
 <div class="card-body">
-    <a href="eventos/create" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" >CREAR</a>
+    
+        <a href="eventos/create" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-alternate btn-lg" >CREAR</a>
+    
+        
+    
     <div class="d-md-flex justify-content-md-end">
         <form action="{{route('eventos.index')}}" method="GET">
             
@@ -22,17 +26,22 @@
         </form>
 
     </div>
+    
     <div class="table-responsive">
         <table id="example" class="table table-primary table-striped mt-6">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">NOMBRE</th>
-                    <th scope="col">GESTION</th>
-                    <th scope="col">DESCRIPCION</th>
-                    <th scope="col">CUPO</th>
+                    <th scope="col">TITULO DEL EVENTO</th>
+                    <th scope="col">FECHA DE INICIO</th>
+                    <th scope="col">FECHA FINAL</th>
+                    <th scope="col">LUGAR EVENTO</th>
                     <th scope="col">CATEGORIA</th>
-                    <th scope="col">DISPONIBILIDAD</th>
+                    <th scope="col">GESTION</th>
+                    <th scope="col">CUPO</th>
+                    <th scope="col">TIPO DE EVENTO</th>
+                    <th scope="col">INSCRIPCION ABIERTA</th>
+                    <th scope="col">DESCRIPCION</th>
                     <th scope="col">ACCIONES</th>
                 
                 </tr>
@@ -42,15 +51,19 @@
                 <tr>
                     <td>{{$evento->id}}</td>
                     <td>{{$evento->nombre}}</td>
-                    <td>{{$evento->gestion}}</td>
-                    <td>{{$evento->descripcion}}</td>
+                    <td>{{$evento->fechainicio}}</td>
+                    <td>{{$evento->fechafinal}}</td>
+                    <td>{{$evento->lugar->nombre2}}</td>
+                    <td>{{$evento->categoria->categoria}}</td>
+                    <td>{{$evento->year->año}}</td>
                     <td>{{$evento->cupo}}</td>
-                    <td>{{$evento->categoria}}</td>
+                    <td>{{$evento->tipo->nombre}}</td>
                     <td>{{$evento->disponible}}</td>
+                    <td>{{$evento->descripcion}}</td>
                     
                     <td>{{$evento->acciones}}
                         <form action="{{route ('eventos.destroy',$evento->id)}}" method="POST">
-                            <a class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-warning btn-sm" href="{{ route('eventos.show',$evento->id) }}"><i ></i> {{ __('Show') }}</a>
+                            <a class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-warning btn-sm" href="{{ route('eventos.show',$evento->id) }}"><i ></i> {{ __('Mostrar') }}</a>
                             <a href="/eventos/{{$evento->id}}/edit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-dark btn-sm">Editar</a>
                             @csrf
                             @method('DELETE')

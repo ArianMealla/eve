@@ -1,210 +1,60 @@
-<!doctype html>
-<html lang="en">
+<x-guest-layout>
+    <x-authentication-card>
+        <x-slot name="logo">
+            <x-authentication-card-logo />
+        </x-slot>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>ArchitectUI HTML Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+        <x-validation-errors class="mb-4" />
 
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-    <link rel="stylesheet" href="../assets/css/base.min.css">
+            <div>
+                <x-label for="name" value="{{ __('Name') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            </div>
 
-</head>
+            <div class="mt-4">
+                <x-label for="email" value="{{ __('Email') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            </div>
 
-<body>
-<div class="app-container app-theme-white body-tabs-shadow">
-        <div class="app-container">
-            <div class="h-100 bg-premium-dark">
-                <div class="d-flex h-100 justify-content-center align-items-center">
-                    <div class="mx-auto app-login-box col-md-8">
-                        <div class="app-logo-inverse mx-auto mb-3"></div>
-                        <div class="modal-dialog w-100">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h5 class="modal-title">
-                                        <h4 class="mt-2">
-                                            <div>Welcome,</div>
-                                            <span>It only takes a <span class="text-success">few seconds</span> to create your account</span></h4>
-                                    </h5>
-                                    <div class="divider row"></div>
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group"><input name="email" id="exampleEmail" placeholder="Email here..." type="email" class="form-control"></div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group"><input name="text" id="exampleName" placeholder="Name here..." type="text" class="form-control"></div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group"><input name="password" id="examplePassword" placeholder="Password here..." type="password" class="form-control"></div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group"><input name="passwordrep" id="examplePasswordRep" placeholder="Repeat Password here..." type="password" class="form-control"></div>
-                                        </div>
-                                    </div>
-                                   
-                                    <h6 class="mb-0">Already have an account? <a href="login" class="text-primary">Sign in</a> | <a href="register" class="text-primary"></a></h6></div>
-                                <div class="modal-footer d-block text-center">
-                                    <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" href="register">Create Account
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Password') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            </div>
+
+            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                <div class="mt-4">
+                    <x-label for="terms">
+                        <div class="flex items-center">
+                            <x-checkbox name="terms" id="terms" required />
+
+                            <div class="ml-2">
+                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
+                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
+                                ]) !!}
                             </div>
                         </div>
-                        <div class="text-center text-white opacity-8 mt-3">Copyright © ArchitectUI 2019</div>
-                    </div>
+                    </x-label>
                 </div>
+            @endif
+
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
+
+                <x-button class="ml-4">
+                    {{ __('Register') }}
+                </x-button>
             </div>
-        </div>
-</div>
-
-
-<!--SCRIPTS INCLUDES-->
-
-<!--CORE-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
-<script src="../assets/js/scripts-init/app.js"></script>
-<script src="../assets/js/scripts-init/demo.js"></script>
-
-<!--CHARTS-->
-
-<!--Apex Charts-->
-<script src="../assets/js/vendors/charts/apex-charts.js"></script>
-
-<script src="../assets/js/scripts-init/charts/apex-charts.js"></script>
-<script src="../assets/js/scripts-init/charts/apex-series.js"></script>
-
-<!--Sparklines-->
-<script src="../assets/js/vendors/charts/charts-sparklines.js"></script>
-<script src="../assets/js/scripts-init/charts/charts-sparklines.js"></script>
-
-<!--Chart.js-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-<script src="../assets/js/scripts-init/charts/chartsjs-utils.js"></script>
-
-<!--FORMS-->
-
-<!--Clipboard-->
-<script src="../assets/js/vendors/form-components/clipboard.js"></script>
-<script src="../assets/js/scripts-init/form-components/clipboard.js"></script>
-
-<!--Datepickers-->
-<script src="../assets/js/vendors/form-components/datepicker.js"></script>
-<script src="../assets/js/vendors/form-components/daterangepicker.js"></script>
-<script src="../assets/js/vendors/form-components/moment.js"></script>
-<script src="../assets/js/scripts-init/form-components/datepicker.js"></script>
-
-<!--Multiselect-->
-<script src="../assets/js/vendors/form-components/bootstrap-multiselect.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="../assets/js/scripts-init/form-components/input-select.js"></script>
-
-<!--Form Validation-->
-<script src="../assets/js/vendors/form-components/form-validation.js"></script>
-<script src="../assets/js/scripts-init/form-components/form-validation.js"></script>
-
-<!--Form Wizard-->
-<script src="../assets/js/vendors/form-components/form-wizard.js"></script>
-<script src="../assets/js/scripts-init/form-components/form-wizard.js"></script>
-
-<!--Input Mask-->
-<script src="../assets/js/vendors/form-components/input-mask.js"></script>
-<script src="../assets/js/scripts-init/form-components/input-mask.js"></script>
-
-<!--RangeSlider-->
-<script src="../assets/js/vendors/form-components/wnumb.js"></script>
-<script src="../assets/js/vendors/form-components/range-slider.js"></script>
-<script src="../assets/js/scripts-init/form-components/range-slider.js"></script>
-
-<!--Textarea Autosize-->
-<script src="../assets/js/vendors/form-components/textarea-autosize.js"></script>
-<script src="../assets/js/scripts-init/form-components/textarea-autosize.js"></script>
-
-<!--Toggle Switch -->
-<script src="../assets/js/vendors/form-components/toggle-switch.js"></script>
-
-
-<!--COMPONENTS-->
-
-<!--BlockUI -->
-<script src="../assets/js/vendors/blockui.js"></script>
-<script src="../assets/js/scripts-init/blockui.js"></script>
-
-<!--Calendar -->
-<script src="../assets/js/vendors/calendar.js"></script>
-<script src="../assets/js/scripts-init/calendar.js"></script>
-
-<!--Slick Carousel -->
-<script src="../assets/js/vendors/carousel-slider.js"></script>
-<script src="../assets/js/scripts-init/carousel-slider.js"></script>
-
-<!--Circle Progress -->
-<script src="../assets/js/vendors/circle-progress.js"></script>
-<script src="../assets/js/scripts-init/circle-progress.js"></script>
-
-<!--CountUp -->
-<script src="../assets/js/vendors/count-up.js"></script>
-<script src="../assets/js/scripts-init/count-up.js"></script>
-
-<!--Cropper -->
-<script src="../assets/js/vendors/cropper.js"></script>
-<script src="../assets/js/vendors/jquery-cropper.js"></script>
-<script src="../assets/js/scripts-init/image-crop.js"></script>
-
-<!--Maps -->
-<script src="../assets/js/vendors/gmaps.js"></script>
-<script src="../assets/js/vendors/jvectormap.js"></script>
-<script src="../assets/js/scripts-init/maps-word-map.js"></script>
-<script src="../assets/js/scripts-init/maps.js"></script>
-
-<!--Guided Tours -->
-<script src="../assets/js/vendors/guided-tours.js"></script>
-<script src="../assets/js/scripts-init/guided-tours.js"></script>
-
-<!--Ladda Loading Buttons -->
-<script src="../assets/js/vendors/ladda-loading.js"></script>
-<script src="../assets/js/vendors/spin.js"></script>
-<script src="../assets/js/scripts-init/ladda-loading.js"></script>
-
-<!--Rating -->
-<script src="../assets/js/vendors/rating.js"></script>
-<script src="../assets/js/scripts-init/rating.js"></script>
-
-<!--Perfect Scrollbar -->
-<script src="../assets/js/vendors/scrollbar.js"></script>
-<script src="../assets/js/scripts-init/scrollbar.js"></script>
-
-<!--Toastr-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
-<script src="../assets/js/scripts-init/toastr.js"></script>
-
-<!--SweetAlert2-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script src="../assets/js/scripts-init/sweet-alerts.js"></script>
-
-<!--Tree View -->
-<script src="../assets/js/vendors/treeview.js"></script>
-<script src="../assets/js/scripts-init/treeview.js"></script>
-
-
-<!--TABLES -->
-<!--DataTables-->
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1.10.19/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" crossorigin="anonymous"></script>
-
-<!--Bootstrap Tables-->
-<script src="../assets/js/vendors/tables.js"></script>
-
-<!--Tables Init-->
-<script src="../assets/js/scripts-init/tables.js"></script>
-
-</body>
-</html>
+        </form>
+    </x-authentication-card>
+</x-guest-layout>

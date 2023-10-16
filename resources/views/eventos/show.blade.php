@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('template_title')
-    {{ $profesor->name ?? "{{ __('Show') Evento" }}
+    {{ $profesor->name ?? "{{ __('Mostrar') Evento" }}
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Evento</span>
+                            <span class="card-title">{{ __('Mostrar') }} Evento</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('eventos.index') }}"> {{ __('Atras') }}</a>
@@ -25,22 +25,53 @@
                             <strong>Nombre:</strong>
                             {{ $eventos->nombre }}
                         </div>
+                        
                         <div class="form-group">
-                            <strong>Gestion:</strong>
-                            {{ $eventos->gestion }}
+                            <strong>Fecha de Inicio:</strong>
+                            {{ $eventos->fechainicio }}
                         </div>
+                        
                         <div class="form-group">
-                            <strong>Descripcion:</strong>
-                            {{ $eventos->descripcion }}
+                            <strong>Fecha de Final:</strong>
+                            {{ $eventos->fechafinal }}
                         </div>
+                        
+                        <div class="form-group">
+                            <strong>Lugar Evento:</strong>
+                            {{ $eventos->lugar->nombre2 }}
+                        </div>
+                        
                         <div class="form-group">
                             <strong>Categoria:</strong>
-                            {{ $eventos->categoria }}
+                            {{ $eventos->categoria->categoria }}
                         </div>
+                        
+                        <div class="form-group">
+                            <strong>Gestion:</strong>
+                            {{ $eventos->year->año }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <strong>Cupo:</strong>
+                            {{ $eventos->cupo }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <strong>Tpo Evento:</strong>
+                            {{ $eventos->tipo->nombre }}
+                        </div>
+                        
                         <div class="form-group">
                             <strong>Disponible:</strong>
                             {{ $eventos->disponible }}
                         </div>
+                        
+                        <div class="form-group">
+                            <strong>Descripcion:</strong>
+                            {{ $eventos->descripcion }}
+                        </div>
+                        
+                        
 
                     </div>
                 </div>
